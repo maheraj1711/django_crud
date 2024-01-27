@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="Free Web tutorials" />
+    <meta name="keywords" content="HTML, CSS, JavaScript" />
+    <meta name="author" content="John Doe" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link href="" rel="icon" />
+
+    <!-- CSS Links -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-md text-center">
+        <a class="navbar-brand" href="/">Navbar</a>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-4">
+          <h2 class="text-white bg-dark text-center p-3">Insert Student Details</h2>
+          <form action="/insert" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <input class="form-control mt-2" type="text" placeholder="Enter the Student Name" name="name" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control mt-2" type="email" placeholder="Enter the Student Email" name="email" required>
+            </div>
+            <div class="form-group">
+              <input class="form-control mt-2" type="number" placeholder="Enter the Student Age" name="age" required>
+            </div>
+            <div class="form-group mt-2">
+              <select id="gender" class="form-control" name="gender" required>
+                <option selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="d-grid gap-2 mt-2">
+              <button class="btn btn-success" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-8">
+          <h2 class="text-center text-white bg-dark p-3">Student Details</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Age</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <th scope="row">{{d.id}}</th>
+                <td>{{d.name}}</td>
+                <td>{{d.email}}</td>
+                <td>{{d.age}}</td>
+                <td>{{d.gender}}</td>
+                <td><a type="button" href="/update/{{d.id}}" class="btn btn-outline-primary">Edit</a></td>
+                <td><a type="button" href="/delete/{{d.id}}" class="btn btn-outline-danger">Delete</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
